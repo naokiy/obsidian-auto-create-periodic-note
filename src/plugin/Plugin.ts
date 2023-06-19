@@ -1,16 +1,18 @@
-import type { Settings } from "../Settings";
-import { DEFAULT_SETTINGS } from "../Settings";
-
 import { PluginSettingTab } from "./PluginSettingTab";
+import { Scheduler } from "./Scheduler";
+import type { Settings } from "./Settings";
+import { toSettings } from "./Settings";
 
-import moment from "moment";
-import * as schedule from "node-schedule";
 import * as obsidian from "obsidian";
-import { createDailyNote } from "obsidian-daily-notes-interface";
 
 export class Plugin extends obsidian.Plugin {
   settings: Settings;
-  job?: schedule.Job;
+  scheduler: Scheduler;
+
+  constructor(app: obsidian.App, manifest: obsidian.PluginManifest) {
+    super(app, manifest);
+    this.scheduler = new Scheduler();
+  }
 
   async onload() {
     await this.loadSettings();
@@ -18,28 +20,22 @@ export class Plugin extends obsidian.Plugin {
   }
 
   onunload() {
-    this.job?.cancel();
+    this.deactivateScheduler();
   }
 
   async loadSettings() {
-    this.settings = Object.assign(
-      {},
-      DEFAULT_SETTINGS,
-      await this.loadData()
-    ) as Settings;
+    this.settings = toSettings(await this.loadData());
   }
 
   async saveSettings() {
     await this.saveData(this.settings);
   }
 
-  activateSchedule(): void {
-    const rule = new schedule.RecurrenceRule();
-    rule.hour = 0;
-    rule.minute = 0;
-    schedule.scheduleJob(rule, async () => {
-      const date = moment();
-      await createDailyNote(date);
-    });
+  activateScheduler(): void {
+    this.scheduler.start();
+  }
+
+  deactivateScheduler(): void {
+    this.scheduler.stop();
   }
 }
