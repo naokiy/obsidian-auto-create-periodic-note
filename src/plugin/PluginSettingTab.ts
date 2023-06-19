@@ -1,12 +1,11 @@
-import type AutoCreatePeriodicNotePlugin from "./main";
+import type { Plugin } from "./Plugin";
 
-import type { App } from "obsidian";
-import { PluginSettingTab, Setting } from "obsidian";
+import * as obsidian from "obsidian";
 
-export class AutoCreatePeriodicNoteSettingTab extends PluginSettingTab {
-  plugin: AutoCreatePeriodicNotePlugin;
+export class PluginSettingTab extends obsidian.PluginSettingTab {
+  plugin: Plugin;
 
-  constructor(app: App, plugin: AutoCreatePeriodicNotePlugin) {
+  constructor(app: obsidian.App, plugin: Plugin) {
     super(app, plugin);
     this.plugin = plugin;
   }
@@ -18,7 +17,7 @@ export class AutoCreatePeriodicNoteSettingTab extends PluginSettingTab {
 
     containerEl.createEl("h2", { text: "Settings for my awesome plugin." });
 
-    new Setting(containerEl)
+    new obsidian.Setting(containerEl)
       .setName("Setting #1")
       .setDesc("It's a secret")
       .addText((text) =>
