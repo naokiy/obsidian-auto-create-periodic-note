@@ -10,19 +10,24 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
     this.plugin = plugin;
   }
 
+  private get settings() {
+    return this.plugin.settings;
+  }
+
   display(): void {
     const { containerEl } = this;
 
     containerEl.empty();
 
-    containerEl.createEl("h2", { text: "Settings for my awesome plugin." });
+    containerEl.createEl("h2", {
+      text: "Settings for Auto Create Periodic Note.",
+    });
 
     new obsidian.Setting(containerEl)
-      .setName("Setting #1")
-      .setDesc("It's a secret")
+      .setName("Run on this device")
       .addToggle((toggle) =>
-        toggle.setValue(this.plugin.settings.active).onChange(async (value) => {
-          this.plugin.settings.active = value;
+        toggle.setValue(this.settings.active).onChange(async (value) => {
+          this.settings.active = value;
           await this.plugin.saveSettings();
         })
       );

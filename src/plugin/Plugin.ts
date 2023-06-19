@@ -7,16 +7,12 @@ import * as obsidian from "obsidian";
 
 export class Plugin extends obsidian.Plugin {
   settings: Settings;
-  scheduler: Scheduler;
-
-  constructor(app: obsidian.App, manifest: obsidian.PluginManifest) {
-    super(app, manifest);
-    this.scheduler = new Scheduler();
-  }
+  scheduler?: Scheduler;
 
   async onload() {
     await this.loadSettings();
     this.addSettingTab(new PluginSettingTab(this.app, this));
+    this.scheduler = new Scheduler();
   }
 
   onunload() {
@@ -32,10 +28,10 @@ export class Plugin extends obsidian.Plugin {
   }
 
   activateScheduler(): void {
-    this.scheduler.start();
+    this.scheduler?.start();
   }
 
   deactivateScheduler(): void {
-    this.scheduler.stop();
+    this.scheduler?.stop();
   }
 }
