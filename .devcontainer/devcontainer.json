@@ -1,0 +1,12 @@
+{
+	"name": "Obsidian Plugin Development",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-20",
+	"remoteUser": "node",
+	"mounts": [
+		"source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+	],
+	"postCreateCommand": {
+		"add permission to node_modules": "sudo chown node node_modules",
+		"npm": "npm install -g gitmoji-cli @go-task/cli tsx"
+	}
+}
