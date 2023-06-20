@@ -1,37 +1,25 @@
+import { Controller } from "../controller/Controller";
+import { LocalStorageBooleanGateway } from "../helper/LocalStorageBooleanGateway";
+
 import { PluginSettingTab } from "./PluginSettingTab";
-import { Scheduler } from "./Scheduler";
-import type { Settings } from "./Settings";
-import { toSettings } from "./Settings";
 
 import * as obsidian from "obsidian";
 
 export class Plugin extends obsidian.Plugin {
-  settings: Settings;
-  scheduler?: Scheduler;
+  public _controller: Controller;
 
-  async onload() {
-    await this.loadSettings();
+  onload() {
     this.addSettingTab(new PluginSettingTab(this.app, this));
-    this.scheduler = new Scheduler();
+    this._controller = new Controller(
+      new LocalStorageBooleanGateway(app, "active")
+    );
   }
 
   onunload() {
-    this.deactivateScheduler();
+    this._controller.onUnload();
   }
 
-  async loadSettings() {
-    this.settings = toSettings(await this.loadData());
-  }
-
-  async saveSettings() {
-    await this.saveData(this.settings);
-  }
-
-  activateScheduler(): void {
-    this.scheduler?.start();
-  }
-
-  deactivateScheduler(): void {
-    this.scheduler?.stop();
+  get controller(): Controller {
+    return this._controller;
   }
 }

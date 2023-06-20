@@ -10,10 +10,6 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
     this.plugin = plugin;
   }
 
-  private get settings() {
-    return this.plugin.settings;
-  }
-
   display(): void {
     const { containerEl } = this;
 
@@ -26,9 +22,8 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
     new obsidian.Setting(containerEl)
       .setName("Run on this device")
       .addToggle((toggle) =>
-        toggle.setValue(this.settings.active).onChange(async (value) => {
-          this.settings.active = value;
-          await this.plugin.saveSettings();
+        toggle.setValue(this.plugin.controller.active).onChange((value) => {
+          this.plugin.controller.active = value;
         })
       );
   }
