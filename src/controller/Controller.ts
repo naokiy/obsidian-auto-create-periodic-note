@@ -8,6 +8,9 @@ export class Controller {
   constructor(private readonly repository: SettingRepository<boolean>) {
     this._active = this.repository.load(false);
     this.scheduler = new Scheduler();
+    if (this._active) {
+      this.scheduler.start();
+    }
   }
 
   get active(): boolean {
@@ -15,10 +18,12 @@ export class Controller {
   }
 
   set active(active: boolean) {
-    if (this._active === false && active === true) {
-      this.scheduler.start();
+    if (this._active === active) {
+      return;
     }
-    if (this._active === false && active === false) {
+    if (active) {
+      this.scheduler.start();
+    } else {
       this.scheduler.stop();
     }
     this._active = active;
