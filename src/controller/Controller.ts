@@ -1,4 +1,4 @@
-import type { MessageDisplay } from "./MessageDisplay";
+import type { Notifier } from "./MessageDisplay";
 import { Scheduler } from "./Scheduler";
 import type { SettingRepository } from "./SettingRepository";
 
@@ -8,7 +8,7 @@ export class Controller {
 
   constructor(
     private readonly repository: SettingRepository<boolean>,
-    private readonly messageDisplay: MessageDisplay
+    private readonly messageDisplay: Notifier
   ) {
     this._active = this.repository.load(false);
     this.scheduler = new Scheduler();
