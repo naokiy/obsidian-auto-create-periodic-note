@@ -1,5 +1,6 @@
 import { Controller } from "../controller/Controller";
 import { LocalStorageBooleanGateway } from "../helper/LocalStorageBooleanGateway";
+import { Notifier } from "../helper/Notifier";
 
 import { PluginSettingTab } from "./PluginSettingTab";
 
@@ -11,7 +12,8 @@ export class Plugin extends obsidian.Plugin {
   onload() {
     this.addSettingTab(new PluginSettingTab(this.app, this));
     this._controller = new Controller(
-      new LocalStorageBooleanGateway(app, "active")
+      new LocalStorageBooleanGateway(app, "active"),
+      new Notifier("Auto create periodic note")
     );
   }
 
