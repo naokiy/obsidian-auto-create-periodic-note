@@ -7,7 +7,7 @@
 	],
 	"postCreateCommand": {
 		"add permission to node_modules": "sudo chown node node_modules",
-		"npm": "npm install -g gitmoji-cli @go-task/cli tsx",
+		"npm": "npm install -g npm@latest && npm install -g gitmoji-cli @go-task/cli tsx",
 		"git add safe directory": "sudo git config --system --add safe.directory ${containerWorkspaceFolder}"
 	},
 	"postStartCommand": {
