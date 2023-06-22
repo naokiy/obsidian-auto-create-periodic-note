@@ -1,4 +1,4 @@
-import type { Notifier } from "../controller/MessageDisplay";
+import type { Notifier } from "../controller/Notifier";
 
 import { Notice } from "obsidian";
 

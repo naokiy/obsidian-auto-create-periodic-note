@@ -1,4 +1,4 @@
-import type { Notifier } from "./MessageDisplay";
+import type { Notifier } from "./Notifier";
 import { Scheduler } from "./Scheduler";
 import type { SettingRepository } from "./SettingRepository";
 
