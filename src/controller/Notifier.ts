@@ -1,3 +1,3 @@
-export type MessageDisplay = {
+export type Notifier = {
   show(text: string): void;
 };
