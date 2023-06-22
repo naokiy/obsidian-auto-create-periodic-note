@@ -5,26 +5,62 @@ version: "3"
 vars:
   PUBLIC_DIR: public
   DIST_DIR: dist
+  HOTRELOAD_DIR: hotreload
 
 tasks:
+
   build:
     cmds:
       - task: cleanup
+        vars:
+          DIR: "{{.DIST_DIR}}"
       - task: copy-static-assets
+        vars:
+          DIR: "{{.DIST_DIR}}"
       - task: build-ts
-  cleanup:
+  
+  hotreload:
     cmds:
-      - npx rimraf "{{.DIST_DIR}}"
+      - task: cleanup
+        vars:
+          DIR: "{{.HOTRELOAD_DIR}}"
+      - task: copy-static-assets
+        vars:
+          DIR: "{{.HOTRELOAD_DIR}}"
+      - task: touch-hotreload-file
+      - task: build-hotreload
+
+  cleanup:
+    vars:
+      DIR: '{{default .DIST_DIR .DIR}}'
+    cmds:
+      - npx rimraf "{{.DIR}}"
+
   copy-static-assets:
     internal: true
+    vars:
+      DIR: '{{default .DIST_DIR .DIR}}'
     cmds:
-      - npx copyfiles -f "./{{.PUBLIC_DIR}}/*" "{{.DIST_DIR}}"
-      - npx copyfiles -f "./manifest.json" "{{.DIST_DIR}}"
+      - npx copyfiles -f "./{{.PUBLIC_DIR}}/*" "{{.DIR}}"
+      - npx copyfiles -f "./manifest.json" "{{.DIR}}"
+
   build-ts:
     internal: true
     cmds:
       - task: type-check
-      - "node esbuild.config.mjs production"
+      - node esbuild.config.mjs production
+
+  build-hotreload:
+    internal: true
+    cmds:
+      - task: type-check
+      - node esbuild.config.mjs hotreload
+
   type-check:
     cmds:
-      - "tsc -noEmit -skipLibCheck"
+      - tsc -noEmit -skipLibCheck
+  
+  touch-hotreload-file:
+    cmds:
+      - npx mkdirp "{{.HOTRELOAD_DIR}}"
+      - npx nodetouch "{{.HOTRELOAD_DIR}}/.hotreload"
