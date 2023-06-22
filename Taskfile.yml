@@ -1,0 +1,30 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  PUBLIC_DIR: public
+  DIST_DIR: dist
+
+tasks:
+  build:
+    cmds:
+      - task: cleanup
+      - task: copy-static-assets
+      - task: build-ts
+  cleanup:
+    cmds:
+      - npx rimraf "{{.DIST_DIR}}"
+  copy-static-assets:
+    internal: true
+    cmds:
+      - npx copyfiles -f "./{{.PUBLIC_DIR}}/*" "{{.DIST_DIR}}"
+      - npx copyfiles -f "./manifest.json" "{{.DIST_DIR}}"
+  build-ts:
+    internal: true
+    cmds:
+      - task: type-check
+      - "node esbuild.config.mjs production"
+  type-check:
+    cmds:
+      - "tsc -noEmit -skipLibCheck"
