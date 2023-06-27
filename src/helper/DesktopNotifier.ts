@@ -1,11 +1,11 @@
-import type { Notifier } from "../controller/Notifier";
+import type { Notifier,OnClickedFunction } from "../controller/Notifier";
 
 import { Platform } from "obsidian";
 
 export class DesktopNotifier implements Notifier {
   constructor(private readonly pluginName: string) {}
 
-  show(message: string): void {
+  show(message: string, onClicked?: OnClickedFunction): void {
     if (!Platform.isDesktopApp) {
       return;
     }
@@ -22,6 +22,11 @@ export class DesktopNotifier implements Notifier {
       silent: true,
       body: message,
     });
+
+    if (onClicked !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+      n.on("show", () => {onClicked()});
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     n.show();
