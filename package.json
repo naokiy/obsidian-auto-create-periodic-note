@@ -46,6 +46,7 @@
 	"dependencies": {
 		"node-notifier": "10.0.1",
 		"node-schedule": "2.1.1",
-		"obsidian-daily-notes-interface": "0.9.4"
+		"obsidian-daily-notes-interface": "0.9.4",
+		"option-t": "38.0.7"
 	}
 }

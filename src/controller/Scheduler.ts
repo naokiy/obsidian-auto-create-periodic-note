@@ -1,8 +1,10 @@
-import moment from "moment";
 import * as schedule from "node-schedule";
-import { createDailyNote } from "obsidian-daily-notes-interface";
 
-export class Scheduler {
+export type ScheduledFunction = {
+  (): Promise<void>;
+};
+
+export class DailyScheduler {
   private job?: schedule.Job;
   private running: boolean;
 
@@ -10,18 +12,15 @@ export class Scheduler {
     this.running = false;
   }
 
-  start(): void {
+  start(fn: ScheduledFunction): void {
     if (this.running) {
       return;
     }
     this.running = true;
     const rule = new schedule.RecurrenceRule();
-    rule.hour = 0;
-    rule.minute = 0;
-    this.job = schedule.scheduleJob(rule, async () => {
-      const date = moment();
-      await createDailyNote(date);
-    });
+    rule.hour = 2;
+    rule.minute = 16;
+    this.job = schedule.scheduleJob(rule, async () => fn());
   }
 
   stop(): void {
