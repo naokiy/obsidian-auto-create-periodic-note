@@ -1,7 +1,6 @@
 import type { Plugin } from "./Plugin";
 
 import * as obsidian from "obsidian";
-
 import { NotifierType, isNotifierType } from "src/helper/notifier/NotifierType";
 
 export class PluginSettingTab extends obsidian.PluginSettingTab {
@@ -10,24 +9,6 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
   constructor(plugin: Plugin) {
     super(plugin.app, plugin);
     this.plugin = plugin;
-  }
-
-  display(): void {
-    const { containerEl } = this;
-
-    containerEl.empty();
-
-    containerEl.createEl("h2", {
-      text: "Settings for Auto Create Periodic Note.",
-    });
-
-    if (this.plugin.isDailyNoteSupported) {
-      this.displayActiveSettings(containerEl);
-
-      if (this.plugin.activeSetting.load()) {
-        this.displayNotificationSettings(containerEl);
-      }
-    }
   }
 
   private displayActiveSettings(containerEl: HTMLElement) {
@@ -53,9 +34,9 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
       .setName("Notification type")
       .addDropdown((dropdown) => {
         const options = {
-          obsidian: "Notify in obsidian",
           desktop: "Notify on desktop",
           none: "No notification",
+          obsidian: "Notify in obsidian",
         } as const satisfies Record<NotifierType, string>;
         dropdown.addOptions(options);
         dropdown.setValue(currentNotifierType);
@@ -76,6 +57,24 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
             this.plugin.silentNotificationSetting.save(value);
           })
       );
+    }
+  }
+
+  display(): void {
+    const { containerEl } = this;
+
+    containerEl.empty();
+
+    containerEl.createEl("h2", {
+      text: "Settings for Auto Create Periodic Note.",
+    });
+
+    if (this.plugin.isDailyNoteSupported) {
+      this.displayActiveSettings(containerEl);
+
+      if (this.plugin.activeSetting.load()) {
+        this.displayNotificationSettings(containerEl);
+      }
     }
   }
 }

@@ -21,9 +21,9 @@ export class DesktopNotifier implements Notifier {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const n = new Notification({
-      title: this.pluginName,
-      silent: this.silent,
       body: message,
+      silent: this.silent,
+      title: this.pluginName,
     });
 
     if (onClicked !== undefined) {

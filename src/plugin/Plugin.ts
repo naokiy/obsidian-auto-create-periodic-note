@@ -6,19 +6,34 @@ import { NotifierFactory } from "../helper/notifier/NotifierFactory";
 import { PluginSettingTab } from "./PluginSettingTab";
 
 import * as obsidian from "obsidian";
-
 import type { SettingRepository } from "src/controller/SettingRepository";
 import { DailyNoteCreatorImpl } from "src/helper/DailyNoteCreatorImpl";
 import { checkDailyNoteSupported } from "src/helper/checkDailyNoteSupported";
 import { NotifierType } from "src/helper/notifier/NotifierType";
 
 export class Plugin extends obsidian.Plugin {
-  public _controller: Controller;
-
   public _activeSetting: SettingRepository<boolean>;
+
+  public _controller: Controller;
 
   public _notifierTypeSetting: SettingRepository<NotifierType>;
   public _silentNotificationSetting: SettingRepository<boolean>;
+
+  get activeSetting(): SettingRepository<boolean> {
+    return this._activeSetting;
+  }
+
+  get controller(): Controller {
+    return this._controller;
+  }
+
+  get isDailyNoteSupported(): boolean {
+    return checkDailyNoteSupported();
+  }
+
+  get notifierTypeSetting(): SettingRepository<NotifierType> {
+    return this._notifierTypeSetting;
+  }
 
   onload() {
     this.addSettingTab(new PluginSettingTab(this));
@@ -51,23 +66,7 @@ export class Plugin extends obsidian.Plugin {
     this._controller.onUnload();
   }
 
-  get controller(): Controller {
-    return this._controller;
-  }
-
-  get activeSetting(): SettingRepository<boolean> {
-    return this._activeSetting;
-  }
-
-  get notifierTypeSetting(): SettingRepository<NotifierType> {
-    return this._notifierTypeSetting;
-  }
-
   get silentNotificationSetting(): SettingRepository<boolean> {
     return this._silentNotificationSetting;
-  }
-
-  get isDailyNoteSupported(): boolean {
-    return checkDailyNoteSupported();
   }
 }

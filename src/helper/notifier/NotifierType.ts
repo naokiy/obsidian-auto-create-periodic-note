@@ -1,7 +1,7 @@
 export const NotifierType = {
   Desktop: "desktop",
-  Obsidian: "obsidian",
   None: "none",
+  Obsidian: "obsidian",
 } as const;
 
 export type NotifierType = (typeof NotifierType)[keyof typeof NotifierType];

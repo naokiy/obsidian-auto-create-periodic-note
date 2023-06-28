@@ -4,8 +4,8 @@ import moment from "moment";
 import type { TFile } from "obsidian";
 import {
   createDailyNote,
-  getDailyNote,
   getAllDailyNotes,
+  getDailyNote,
 } from "obsidian-daily-notes-interface";
 import type { Nullable } from "option-t/Nullable";
 import type { Result } from "option-t/PlainResult";
