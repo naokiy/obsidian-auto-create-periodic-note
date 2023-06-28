@@ -24,22 +24,6 @@ export class Controller {
     }
   }
 
-  setActive(active: boolean): void {
-    if (this._active === active) {
-      return;
-    }
-    if (active) {
-      this.startScheduler();
-    } else {
-      this.stopScheduler();
-    }
-    this._active = active;
-  }
-
-  onUnload(): void {
-    this.stopScheduler();
-  }
-
   private startScheduler() {
     this.scheduler.start(async () => {
       if (!this.checkDailyNoteSupported()) {
@@ -71,5 +55,21 @@ export class Controller {
 
   private stopScheduler() {
     this.scheduler.stop();
+  }
+
+  onUnload(): void {
+    this.stopScheduler();
+  }
+
+  setActive(active: boolean): void {
+    if (this._active === active) {
+      return;
+    }
+    if (active) {
+      this.startScheduler();
+    } else {
+      this.stopScheduler();
+    }
+    this._active = active;
   }
 }

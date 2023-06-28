@@ -2,18 +2,15 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "env": { "node": true },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint", "perfectionist"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:import/recommended",
-    "plugin:import/typescript",
+    "plugin:perfectionist/recommended-natural",
     "prettier"
-  ], 
+  ],
   "settings": {
     "import/resolver": {
       "typescript": true,
@@ -21,8 +18,8 @@
     }
   },
   "parserOptions": {
-      "sourceType": "module",
-      "project": "./tsconfig.json"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   "rules": {
     "no-unused-vars": "off",
@@ -30,16 +27,23 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "no-prototype-builtins": "off",
     "@typescript-eslint/no-empty-function": "off",
-    "import/order": [
-      "warn",
+    "perfectionist/sort-imports": [
+      "error",
       {
-        "groups": ["parent", "sibling", "index", "builtin", "external"],
-        "alphabetize": {
-          "order": "asc"
-        },
-        "newlines-between": "always"
+        "groups": [
+          ["parent", "parent-type"],
+          ["sibling", "sibling-type"],
+          ["index", "index-type"],
+          ["external", "external-type"],
+          ["internal", "internal-type"],
+          ["builtin", "builtin-type"]
+        ],
+        "read-tsconfig": true
       }
     ],
-    "@typescript-eslint/consistent-type-imports": ["warn", { "prefer": "type-imports" }]
-  } 
+    "@typescript-eslint/consistent-type-imports": [
+      "warn",
+      { "prefer": "type-imports" }
+    ]
+  }
 }
