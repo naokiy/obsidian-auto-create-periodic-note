@@ -19,12 +19,13 @@ export class DesktopNotifier implements Notifier {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const Notification = electron.remote.Notification;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, perfectionist/sort-objects */
     const n = new Notification({
+      title: this.pluginName,
       body: message,
       silent: this.silent,
-      title: this.pluginName,
     });
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, perfectionist/sort-objects */
 
     if (onClicked !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
