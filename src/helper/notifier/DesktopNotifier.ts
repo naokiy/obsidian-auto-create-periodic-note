@@ -1,9 +1,12 @@
-import type { Notifier,OnClickedFunction } from "../controller/Notifier";
+import type { Notifier, OnClickedFunction } from "../../controller/Notifier";
 
 import { Platform } from "obsidian";
 
 export class DesktopNotifier implements Notifier {
-  constructor(private readonly pluginName: string) {}
+  constructor(
+    private readonly pluginName: string,
+    private readonly silent: boolean = false
+  ) {}
 
   show(message: string, onClicked?: OnClickedFunction): void {
     if (!Platform.isDesktopApp) {
@@ -19,13 +22,15 @@ export class DesktopNotifier implements Notifier {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const n = new Notification({
       title: this.pluginName,
-      silent: true,
+      silent: this.silent,
       body: message,
     });
 
     if (onClicked !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-      n.on("show", () => {onClicked()});
+      n.on("click", async () => {
+        await onClicked();
+      });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call

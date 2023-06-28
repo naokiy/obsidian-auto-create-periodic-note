@@ -1,5 +1,5 @@
 export type SettingReader<T> = {
-  load(defaultValue: T): T;
+  load(): T;
 };
 
 export type SettingWriter<T> = {
