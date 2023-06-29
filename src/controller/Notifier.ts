@@ -2,13 +2,9 @@ export type Notifier = {
   show(text: string, onclicked?: OnClickedFunction): void;
 };
 
-type OnClickedFunctionPlain = {
-  (): void;
-};
+type OnClickedFunctionPlain = () => void;
 
-type OnClickedFunctionPromise = {
-  (): Promise<void>;
-};
+type OnClickedFunctionPromise = () => Promise<void>;
 
 export type OnClickedFunction =
   | OnClickedFunctionPlain

@@ -1,10 +1,11 @@
-/* eslint-disable perfectionist/sort-objects */
 export const NotifierType = {
+  /** Desktop notification */
   Desktop: "desktop",
+  /** Notify inside of Obsidian.md */
   Obsidian: "obsidian",
+  /** No notification */
   None: "none",
 } as const;
-/* eslint-enable perfectionist/sort-objects */
 
 export type NotifierType = (typeof NotifierType)[keyof typeof NotifierType];
 

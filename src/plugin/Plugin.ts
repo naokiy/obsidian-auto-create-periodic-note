@@ -14,12 +14,12 @@ import { NotifierType } from "src/helper/notifier/NotifierType";
 /* eslint perfectionist/sort-classes:0 */
 
 export class Plugin extends obsidian.Plugin {
-  public _activeSetting: SettingRepository<boolean>;
+  public _activeSetting!: SettingRepository<boolean>;
 
-  public _controller: Controller;
+  public _controller!: Controller;
 
-  public _notifierTypeSetting: SettingRepository<NotifierType>;
-  public _silentNotificationSetting: SettingRepository<boolean>;
+  public _notifierTypeSetting!: SettingRepository<NotifierType>;
+  public _silentNotificationSetting!: SettingRepository<boolean>;
 
   onload() {
     this.addSettingTab(new PluginSettingTab(this));
