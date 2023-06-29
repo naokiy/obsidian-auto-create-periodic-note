@@ -1,3 +1,1 @@
-export type CheckDailyNoteSupportedFunction = {
-  (): boolean;
-};
+export type CheckDailyNoteSupportedFunction = () => boolean;

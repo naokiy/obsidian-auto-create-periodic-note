@@ -7,13 +7,17 @@ import {
   getAllDailyNotes,
   getDailyNote,
 } from "obsidian-daily-notes-interface";
+
+import { isNotNullOrUndefined } from "option-t/Maybe";
+import type { Maybe } from "option-t/Maybe";
 import type { Nullable } from "option-t/Nullable";
-import type { Result } from "option-t/PlainResult";
 import { createOk } from "option-t/PlainResult";
+import type { Result } from "option-t/PlainResult";
 import { tryCatchIntoResultWithEnsureErrorAsync } from "option-t/PlainResult/tryCatchAsync";
 
 function checkAlreadyExists(date: moment.Moment): boolean {
-  return getDailyNote(date, getAllDailyNotes()) !== null;
+  const dailyNote: Maybe<TFile> = getDailyNote(date, getAllDailyNotes());
+  return isNotNullOrUndefined(dailyNote);
 }
 
 export class DailyNoteCreatorImpl implements DailyNoteCreator {

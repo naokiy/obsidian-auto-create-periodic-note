@@ -8,7 +8,7 @@ export class LocalStorageBooleanGateway implements SettingRepository<boolean> {
   private readonly gateway: LocalStorageGateway;
 
   constructor(
-    private readonly plugin: Plugin,
+    plugin: Plugin,
     private readonly key: string,
     private readonly defaultValue: boolean
   ) {

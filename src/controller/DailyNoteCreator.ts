@@ -1,4 +1,5 @@
 import type { TFile } from "obsidian";
+
 import type { Nullable } from "option-t/Nullable";
 import type { Result } from "option-t/PlainResult";
 

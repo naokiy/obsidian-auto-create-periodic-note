@@ -1,8 +1,6 @@
 import * as schedule from "node-schedule";
 
-export type ScheduledFunction = {
-  (): Promise<void>;
-};
+export type ScheduledFunction = () => Promise<void>;
 
 export class DailyScheduler {
   private job?: schedule.Job;

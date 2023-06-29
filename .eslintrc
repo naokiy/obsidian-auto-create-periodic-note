@@ -8,6 +8,7 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
     "plugin:perfectionist/recommended-natural",
     "prettier"
   ],
@@ -23,10 +24,11 @@
   },
   "rules": {
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
+    "@typescript-eslint/no-unused-vars": ["error", {"args": "none"}],
     "@typescript-eslint/ban-ts-comment": "off",
     "no-prototype-builtins": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
     "perfectionist/sort-imports": [
       "error",
       {
@@ -35,10 +37,25 @@
           ["sibling", "sibling-type"],
           ["index", "index-type"],
           ["external", "external-type"],
+          ["external-lightweight", "external-light-weight-type"],
           ["internal", "internal-type"],
           ["builtin", "builtin-type"]
         ],
+        "custom-groups": {
+          "value": {
+            "external-lightweight": ["option-t/**/*"]
+          },
+          "type": {
+            "external-lightweight-type": ["option-t/**/*"]
+          }
+        },
         "read-tsconfig": true
+      }
+    ],
+    "perfectionist/sort-objects": [
+      "error",
+      {
+        "partition-by-comment": true
       }
     ],
     "@typescript-eslint/consistent-type-imports": [

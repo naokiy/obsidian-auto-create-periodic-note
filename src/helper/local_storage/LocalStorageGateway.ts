@@ -1,9 +1,9 @@
 import type { App, Plugin } from "obsidian";
 
-interface UnsafeAppInterface {
+type UnsafeAppInterface = {
   loadLocalStorage(key: string): null | string;
   saveLocalStorage(key: string, value: string | undefined): void;
-}
+};
 
 type UnsafeApp = App & UnsafeAppInterface;
 
