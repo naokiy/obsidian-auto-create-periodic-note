@@ -16,8 +16,8 @@ export class DailyScheduler {
     }
     this.running = true;
     const rule = new schedule.RecurrenceRule();
-    rule.hour = 2;
-    rule.minute = 16;
+    rule.hour = 0;
+    rule.minute = 0;
     this.job = schedule.scheduleJob(rule, async () => fn());
   }
 
