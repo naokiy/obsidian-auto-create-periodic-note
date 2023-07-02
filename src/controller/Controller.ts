@@ -29,7 +29,7 @@ export class Controller {
       if (!this.checkDailyNoteSupported()) {
         console.log(
           "Auto create periodic note:",
-          "Daily note setting is not exists"
+          "Daily note setting not exists."
         );
       }
       const creationResult = await this.dailyNoteCreator.create();
