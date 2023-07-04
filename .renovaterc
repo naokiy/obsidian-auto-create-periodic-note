@@ -3,6 +3,8 @@
 	"extends": [
 		"config:base"
 	],
+	"timezone": "Asia/Tokyo",
+	"lockFileMaintenance": { "enabled": true },
 	"labels": [
 		"📌 dependencies"
 	],
@@ -26,6 +28,12 @@
 			],
 			"commitMessagePrefix": "⬇️",
 			"commitMessageAction": "Downgrade"
+		},
+		{
+			"matchUpdateTypes": [
+				"lockFileMaintenance"
+			],
+			"commitMessagePrefix": "🔨"
 		},
 		{
 			"matchDepTypes": "devDependencies",
