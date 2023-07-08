@@ -1,15 +1,13 @@
 import { Controller } from "../controller/Controller";
-import { LocalStorageBooleanGateway } from "../helper/local_storage/LocalStorageBooleanGateway";
-import { LocalStorageNotifierTypeGateway } from "../helper/local_storage/LocalStorageNotifierTypeGateway";
-import { NotifierFactory } from "../helper/notifier/NotifierFactory";
+import type { SettingRepository } from "../controller/SettingRepository";
+import { DailyNoteCreatorImpl } from "../helper/DailyNoteCreatorImpl";
+import { checkDailyNoteSupported } from "../helper/checkDailyNoteSupported";
+import { BooleanGateway, NotifierTypeGateway } from "../helper/local_storage/";
+import { NotifierFactory, NotifierType } from "../helper/notifier/";
 
 import { PluginSettingTab } from "./PluginSettingTab";
 
 import * as obsidian from "obsidian";
-import type { SettingRepository } from "src/controller/SettingRepository";
-import { DailyNoteCreatorImpl } from "src/helper/DailyNoteCreatorImpl";
-import { checkDailyNoteSupported } from "src/helper/checkDailyNoteSupported";
-import { NotifierType } from "src/helper/notifier/NotifierType";
 
 /* eslint perfectionist/sort-classes:0 */
 
@@ -24,17 +22,13 @@ export class Plugin extends obsidian.Plugin {
   onload() {
     this.addSettingTab(new PluginSettingTab(this));
 
-    this._createDailySetting = new LocalStorageBooleanGateway(
-      this,
-      "create-daily",
-      false
-    );
-    this._notifierTypeSetting = new LocalStorageNotifierTypeGateway(
+    this._createDailySetting = new BooleanGateway(this, "create-daily", false);
+    this._notifierTypeSetting = new NotifierTypeGateway(
       this,
       "notifier-type",
       NotifierType.Obsidian
     );
-    this._silentNotificationSetting = new LocalStorageBooleanGateway(
+    this._silentNotificationSetting = new BooleanGateway(
       this,
       "notifier-silent",
       false

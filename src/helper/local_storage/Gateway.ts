@@ -7,7 +7,7 @@ type UnsafeAppInterface = {
 
 type UnsafeApp = App & UnsafeAppInterface;
 
-export class LocalStorageGateway {
+export class Gateway {
   private readonly prefix: string;
   private readonly unsafeApp: UnsafeApp;
 
