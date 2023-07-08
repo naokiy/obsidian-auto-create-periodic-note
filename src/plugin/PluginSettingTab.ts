@@ -13,7 +13,7 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
 
   private displayActiveSettings(containerEl: HTMLElement) {
     new obsidian.Setting(containerEl)
-      .setName("Run on this device")
+      .setName("Create daily notes on this device")
       .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.createDailySetting.load())
@@ -21,7 +21,7 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
             this.plugin.createDailySetting.save(value);
             this.plugin.controller.setActive(value);
             this.display();
-          })
+          }),
       );
   }
 
@@ -57,7 +57,7 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
           .setValue(this.plugin.silentNotificationSetting.load())
           .onChange((value) => {
             this.plugin.silentNotificationSetting.save(value);
-          })
+          }),
       );
     }
   }
