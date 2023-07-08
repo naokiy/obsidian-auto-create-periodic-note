@@ -14,7 +14,7 @@ import { NotifierType } from "src/helper/notifier/NotifierType";
 /* eslint perfectionist/sort-classes:0 */
 
 export class Plugin extends obsidian.Plugin {
-  public _activeSetting!: SettingRepository<boolean>;
+  public _createDailySetting!: SettingRepository<boolean>;
 
   public _controller!: Controller;
 
@@ -24,7 +24,11 @@ export class Plugin extends obsidian.Plugin {
   onload() {
     this.addSettingTab(new PluginSettingTab(this));
 
-    this._activeSetting = new LocalStorageBooleanGateway(this, "active", false);
+    this._createDailySetting = new LocalStorageBooleanGateway(
+      this,
+      "create-daily",
+      false
+    );
     this._notifierTypeSetting = new LocalStorageNotifierTypeGateway(
       this,
       "notifier-type",
@@ -37,7 +41,7 @@ export class Plugin extends obsidian.Plugin {
     );
 
     this._controller = new Controller(
-      this._activeSetting,
+      this._createDailySetting,
       new NotifierFactory(
         this.manifest.id,
         this._notifierTypeSetting,
@@ -60,8 +64,8 @@ export class Plugin extends obsidian.Plugin {
     return checkDailyNoteSupported();
   }
 
-  get activeSetting(): SettingRepository<boolean> {
-    return this._activeSetting;
+  get createDailySetting(): SettingRepository<boolean> {
+    return this._createDailySetting;
   }
 
   get notifierTypeSetting(): SettingRepository<NotifierType> {
