@@ -24,7 +24,11 @@ export class Plugin extends obsidian.Plugin {
   onload() {
     this.addSettingTab(new PluginSettingTab(this));
 
-    this._activeSetting = new LocalStorageBooleanGateway(this, "active", false);
+    this._activeSetting = new LocalStorageBooleanGateway(
+      this,
+      "create-daily",
+      false
+    );
     this._notifierTypeSetting = new LocalStorageNotifierTypeGateway(
       this,
       "notifier-type",
