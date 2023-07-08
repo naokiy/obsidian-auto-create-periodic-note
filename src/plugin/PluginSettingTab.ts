@@ -15,11 +15,13 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
     new obsidian.Setting(containerEl)
       .setName("Run on this device")
       .addToggle((toggle) =>
-        toggle.setValue(this.plugin.activeSetting.load()).onChange((value) => {
-          this.plugin.activeSetting.save(value);
-          this.plugin.controller.setActive(value);
-          this.display();
-        })
+        toggle
+          .setValue(this.plugin.createDailySetting.load())
+          .onChange((value) => {
+            this.plugin.createDailySetting.save(value);
+            this.plugin.controller.setActive(value);
+            this.display();
+          })
       );
   }
 
@@ -72,7 +74,7 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
     if (this.plugin.isDailyNoteSupported) {
       this.displayActiveSettings(containerEl);
 
-      if (this.plugin.activeSetting.load()) {
+      if (this.plugin.createDailySetting.load()) {
         this.displayNotificationSettings(containerEl);
       }
     }
