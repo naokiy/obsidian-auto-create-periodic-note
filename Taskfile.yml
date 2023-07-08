@@ -27,6 +27,9 @@ tasks:
       - task: copy-static-assets
         vars:
           DIR: "{{.HOTRELOAD_DIR}}"
+      - task: copy-manifest-json
+        vars:
+          DIR: "{{.HOTRELOAD_DIR}}"
       - task: touch-hotreload-file
       - task: build-hotreload
 
@@ -42,6 +45,12 @@ tasks:
       DIR: '{{default .DIST_DIR .DIR}}'
     cmds:
       - npx copyfiles -f "./{{.PUBLIC_DIR}}/*" "{{.DIR}}"
+  
+  copy-manifest-json:
+    internal: true
+    vars:
+      DIR: '{{default .DIST_DIR .DIR}}'
+    cmds:
       - npx copyfiles -f "./manifest.json" "{{.DIR}}"
 
   build-ts:
@@ -64,3 +73,22 @@ tasks:
     cmds:
       - npx mkdirp "{{.HOTRELOAD_DIR}}"
       - npx nodetouch "{{.HOTRELOAD_DIR}}/.hotreload"
+  
+  release:
+    vars:
+      NEW_VERSION: '{{default "0.0.0" .NEW_VERSION}}'
+    cmds:
+      - node version-bump.mjs "{{.NEW_VERSION}}"
+      - task: copy-manifest-json
+        vars:
+          DIR: "{{.DIST_DIR}}"
+
+  release-beta:
+    vars:
+      NEW_VERSION: '{{default "0.0.0" .NEW_VERSION}}'
+    cmds:
+      - node version-bump.mjs "{{.NEW_VERSION}}" beta
+      - task: copy-manifest-json
+        vars:
+          DIR: "{{.DIST_DIR}}"
+    
