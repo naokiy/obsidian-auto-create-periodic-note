@@ -1,7 +1,7 @@
 import type { Plugin } from "./Plugin";
 
 import * as obsidian from "obsidian";
-import { NotifierType, isNotifierType } from "src/helper/notifier/Type";
+import { NotifierType, isNotifierType } from "src/helper/notifier/";
 
 export class PluginSettingTab extends obsidian.PluginSettingTab {
   plugin: Plugin;

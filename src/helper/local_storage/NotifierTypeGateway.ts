@@ -1,6 +1,6 @@
 import type { SettingRepository } from "../../controller/SettingRepository";
-import type { NotifierType } from "../notifier/Type";
-import { isNotifierType } from "../notifier/Type";
+import type { NotifierType } from "../notifier/";
+import { isNotifierType } from "../notifier/";
 
 import { Gateway } from "./Gateway";
 
