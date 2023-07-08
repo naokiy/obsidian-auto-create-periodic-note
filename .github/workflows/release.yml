@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+  workflow_diapatch:
 
 permissions:
   contents: read # for checkout
