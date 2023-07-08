@@ -4,7 +4,7 @@ const getEmojisBySemVer = (releaseType) =>
   gitmojis.filter((e) => e.semver === releaseType).map((e) => e.code);
 
 module.exports = {
-  branch: "main",
+  branches: ["main"],
   plugins: [
     "@semantic-release/npm",
     "@semantic-release/changelog",
