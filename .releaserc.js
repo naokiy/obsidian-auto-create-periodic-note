@@ -1,4 +1,4 @@
-import { gitmojis } from "gitmojis";
+const { gitmojis } = require("gitmojis");
 
 const getEmojisBySemVer = (releaseType) =>
   gitmojis.filter((e) => e.semver === releaseType).map((e) => e.code);
