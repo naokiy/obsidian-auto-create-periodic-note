@@ -1,9 +1,9 @@
 import type { Notifier, NotifierProvider } from "../../controller/Notifier";
 import type { SettingReader } from "../../controller/SettingRepository";
 
-import { DesktopNotifier } from "./DesktopNotifier";
-import { NotifierType } from "./NotifierType";
-import { ObsidianNotifier } from "./ObsidianNotifier";
+import { DesktopNotifier } from "./Desktop";
+import { ObsidianNotifier } from "./Obsidian";
+import { NotifierType } from "./Type";
 
 class NoOpNotifier implements Notifier {
   show(text: string) {}

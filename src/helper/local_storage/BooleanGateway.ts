@@ -1,18 +1,18 @@
 import type { SettingRepository } from "../../controller/SettingRepository";
 
-import { LocalStorageGateway } from "./LocalStorageGateway";
+import { Gateway } from "./Gateway";
 
 import type { Plugin } from "obsidian";
 
-export class LocalStorageBooleanGateway implements SettingRepository<boolean> {
-  private readonly gateway: LocalStorageGateway;
+export class BooleanGateway implements SettingRepository<boolean> {
+  private readonly gateway: Gateway;
 
   constructor(
     plugin: Plugin,
     private readonly key: string,
     private readonly defaultValue: boolean
   ) {
-    this.gateway = new LocalStorageGateway(plugin);
+    this.gateway = new Gateway(plugin);
   }
 
   load(): boolean {

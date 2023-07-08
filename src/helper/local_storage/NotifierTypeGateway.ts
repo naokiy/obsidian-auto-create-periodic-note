@@ -1,22 +1,20 @@
 import type { SettingRepository } from "../../controller/SettingRepository";
-import type { NotifierType } from "../notifier/NotifierType";
-import { isNotifierType } from "../notifier/NotifierType";
+import type { NotifierType } from "../notifier/Type";
+import { isNotifierType } from "../notifier/Type";
 
-import { LocalStorageGateway } from "./LocalStorageGateway";
+import { Gateway } from "./Gateway";
 
 import type { Plugin } from "obsidian";
 
-export class LocalStorageNotifierTypeGateway
-  implements SettingRepository<NotifierType>
-{
-  private readonly gateway: LocalStorageGateway;
+export class NotifierTypeGateway implements SettingRepository<NotifierType> {
+  private readonly gateway: Gateway;
 
   constructor(
     plugin: Plugin,
     private readonly key: string,
     private readonly defaultValue: NotifierType
   ) {
-    this.gateway = new LocalStorageGateway(plugin);
+    this.gateway = new Gateway(plugin);
   }
 
   load(): NotifierType {
