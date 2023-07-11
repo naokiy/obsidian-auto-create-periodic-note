@@ -23,30 +23,39 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
-        if: ${{ steps.release.outputs.release_created }}
+        if: steps.release.outputs.release_created
       - name: Install Task
-        if: ${{ steps.release.outputs.release_created }}
+        if: steps.release.outputs.release_created
         uses: arduino/setup-task@v1
         with:
           version: 3.x
+      - name: Append file to PR
+        if: steps.release.outputs.pr && !steps.release.outputs.release_created
+        env:
+          PR_TITLE: ${{ fromJSON(steps.release.outputs.pr).title }}
+        run: |
+          gh pr checkout ${{ fromJSON(steps.release.outputs.pr).number }}
+          NEW_VERSION=${PR_TITLE/#* } task version-bump-beta
+          git commit -am "chore(release): :bookmark: Bump version"
+          git push
       - uses: actions/checkout@v3
-        if: ${{ steps.release.outputs.release_created }}
+        if: steps.release.outputs.release_created
       - name: NPM install
-        if: ${{ steps.release.outputs.release_created }}
+        if: steps.release.outputs.release_created
         run:
           npm ci --no-audit
       - name: Build
-        if: ${{ steps.release.outputs.release_created }}
+        if: steps.release.outputs.release_created
         run:
-          NEW_VERSION=${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }} task build release-beta
+          task build release-beta
       - name: Upload Release Artifact
-        if: ${{ steps.release.outputs.release_created }}
+        if: steps.release.outputs.release_created
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
           gh release upload ${{ steps.release.outputs.tag_name }} ./dist/*
       - name: Rename Release
-        if: ${{ steps.release.outputs.release_created }}
+        if: steps.release.outputs.release_created
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run:
