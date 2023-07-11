@@ -51,7 +51,7 @@ jobs:
       - name: Build
         if: steps.release.outputs.release_created
         run:
-          task build release-beta
+          task build
       - name: Upload Release Artifact
         if: steps.release.outputs.release_created
         env:
