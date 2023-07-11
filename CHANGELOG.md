@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/naokiy/obsidian-auto-create-periodic-note/compare/1.0.0...1.0.1) (2023-07-11)
+
+
+### Bug Fixes
+
+* :bookmark: release ([#97](https://github.com/naokiy/obsidian-auto-create-periodic-note/issues/97)) ([27762c6](https://github.com/naokiy/obsidian-auto-create-periodic-note/commit/27762c6a437519be0c00c295a2e0d38356972268))
+
 ## 1.0.0 (2023-07-11)
 
 
