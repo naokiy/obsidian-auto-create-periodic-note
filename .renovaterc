@@ -8,7 +8,7 @@
 	"labels": [
 		"📌 dependencies"
 	],
-	"commitMessagePrefix": "feat(deps): ⬆️",
+	"commitMessagePrefix": "fix(deps): ⬆️",
 	"commitMessageAction": "Upgrade",
 	"packageRules": [
 		{
@@ -19,14 +19,14 @@
 			"updateTypes": [
 				"pin"
 			],
-			"commitMessagePrefix": "feat(deps): 📌",
+			"commitMessagePrefix": "fix(deps): 📌",
 			"commitMessageAction": "Pin"
 		},
 		{
 			"updateTypes": [
 				"rollback"
 			],
-			"commitMessagePrefix": "feat(deps): ⬇️",
+			"commitMessagePrefix": "fix(deps): ⬇️",
 			"commitMessageAction": "Downgrade"
 		},
 		{
