@@ -40,6 +40,8 @@ jobs:
           gh pr checkout ${{ fromJSON(steps.release.outputs.pr).number }}
           echo ${PR_TITLE}
           NEW_VERSION=${PR_TITLE/#* } task version-bump-beta
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git commit -am "chore(release): :bookmark: Bump version"
           git push
       - name: NPM install
