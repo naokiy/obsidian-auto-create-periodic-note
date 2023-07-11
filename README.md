@@ -1,6 +1,6 @@
 # Auto Create Periodic Note
 
-**At this time, only daily notes is supported.**
+**Only daily notes is supported at this moment.**
 
 ## Install
 
