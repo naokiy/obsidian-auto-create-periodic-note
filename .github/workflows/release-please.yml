@@ -30,11 +30,12 @@ jobs:
         with:
           version: 3.x
       - name: Append file to PR
-        if: steps.release.outputs.pr && !steps.release.outputs.release_created
+        if: ${{ steps.release.outputs.pr && !steps.release.outputs.release_created }}
         env:
-          PR_TITLE: ${{ fromJSON(steps.release.outputs.pr).title }}
+          PR_TITLE: ${{ steps.release.outputs.pr && fromJSON(steps.release.outputs.pr).title || ''}}
         run: |
           gh pr checkout ${{ fromJSON(steps.release.outputs.pr).number }}
+          echo ${PR_TITLE}
           NEW_VERSION=${PR_TITLE/#* } task version-bump-beta
           git commit -am "chore(release): :bookmark: Bump version"
           git push
