@@ -8,7 +8,7 @@
 	"labels": [
 		"📌 dependencies"
 	],
-	"commitMessagePrefix": "⬆️",
+	"commitMessagePrefix": "feat(deps): ⬆️",
 	"commitMessageAction": "Upgrade",
 	"packageRules": [
 		{
@@ -19,25 +19,25 @@
 			"updateTypes": [
 				"pin"
 			],
-			"commitMessagePrefix": "📌",
+			"commitMessagePrefix": "feat(deps): 📌",
 			"commitMessageAction": "Pin"
 		},
 		{
 			"updateTypes": [
 				"rollback"
 			],
-			"commitMessagePrefix": "⬇️",
+			"commitMessagePrefix": "feat(deps): ⬇️",
 			"commitMessageAction": "Downgrade"
 		},
 		{
 			"matchUpdateTypes": [
 				"lockFileMaintenance"
 			],
-			"commitMessagePrefix": "🔨"
+			"commitMessagePrefix": "chore(deps): 🔨"
 		},
 		{
 			"matchDepTypes": "devDependencies",
-			"commitMessagePrefix": "🔨"
+			"commitMessagePrefix": "chore(deps): 🔨"
 		}
 	]
 }
