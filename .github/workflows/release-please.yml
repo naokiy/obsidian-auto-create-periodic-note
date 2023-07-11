@@ -1,0 +1,53 @@
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: node
+          package-name: release-please-test
+          include-v-in-tag: false
+          pull-request-title-pattern: "chore${scope}: :bookmark: release${component} ${version}"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Install Task
+        if: ${{ steps.release.outputs.release_created }}
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+      - uses: actions/checkout@v3
+        if: ${{ steps.release.outputs.release_created }}
+      - name: NPM install
+        if: ${{ steps.release.outputs.release_created }}
+        run:
+          npm ci --no-audit
+      - name: Build
+        if: ${{ steps.release.outputs.release_created }}
+        run:
+          NEW_VERSION=${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }} task build release-beta
+      - name: Upload Release Artifact
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:
+          gh release upload ${{ steps.release.outputs.tag_name }} ./dist/*
+      - name: Rename Release
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run:
+          gh release edit ${{ steps.release.outputs.tag_name }} --title ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}
