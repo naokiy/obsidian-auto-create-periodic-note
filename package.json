@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-auto-create-periodic-note",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "This plugin that automatically generates periodic notes.",
 	"scripts": {
 		"test": "jest --passWithNoTests",
