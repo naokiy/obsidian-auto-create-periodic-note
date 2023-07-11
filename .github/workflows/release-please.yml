@@ -24,6 +24,8 @@ jobs:
         with:
           node-version: "lts/*"
         if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
+      - uses: actions/checkout@v3
+        if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
       - name: Install Task
         if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
         uses: arduino/setup-task@v1
@@ -40,8 +42,6 @@ jobs:
           NEW_VERSION=${PR_TITLE/#* } task version-bump-beta
           git commit -am "chore(release): :bookmark: Bump version"
           git push
-      - uses: actions/checkout@v3
-        if: steps.release.outputs.release_created
       - name: NPM install
         if: steps.release.outputs.release_created
         run:
