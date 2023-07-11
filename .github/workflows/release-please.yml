@@ -23,9 +23,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
-        if: steps.release.outputs.release_created
+        if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
       - name: Install Task
-        if: steps.release.outputs.release_created
+        if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
         uses: arduino/setup-task@v1
         with:
           version: 3.x
@@ -33,6 +33,7 @@ jobs:
         if: ${{ steps.release.outputs.pr && !steps.release.outputs.release_created }}
         env:
           PR_TITLE: ${{ steps.release.outputs.pr && fromJSON(steps.release.outputs.pr).title || ''}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr checkout ${{ fromJSON(steps.release.outputs.pr).number }}
           echo ${PR_TITLE}
