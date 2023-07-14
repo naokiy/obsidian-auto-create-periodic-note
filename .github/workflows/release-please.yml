@@ -20,47 +20,35 @@ jobs:
           package-name: release-please-test
           include-v-in-tag: false
           pull-request-title-pattern: "chore${scope}: :bookmark: release${component} ${version}"
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
+      - name: Extract Version Number
+        uses: actions/github-script@v6
+        id: extract-version
         if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
-      - uses: actions/checkout@v3
-        if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
-      - name: Install Task
-        if: ${{ steps.release.outputs.pr || steps.release.outputs.release_created }}
-        uses: arduino/setup-task@v1
-        with:
-          version: 3.x
-      - name: Append file to PR
-        if: ${{ steps.release.outputs.pr && !steps.release.outputs.release_created }}
         env:
           PR_TITLE: ${{ steps.release.outputs.pr && fromJSON(steps.release.outputs.pr).title || ''}}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr checkout ${{ fromJSON(steps.release.outputs.pr).number }}
-          echo ${PR_TITLE}
-          NEW_VERSION=${PR_TITLE/#* } task version-bump-beta
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git commit -am "chore(release): :bookmark: Bump version"
-          git push
-      - name: NPM install
-        if: steps.release.outputs.release_created
-        run:
-          npm ci --no-audit
-      - name: Build
-        if: steps.release.outputs.release_created
-        run:
-          task build
-      - name: Upload Release Artifact
-        if: steps.release.outputs.release_created
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
-          gh release upload ${{ steps.release.outputs.tag_name }} ./dist/*
-      - name: Rename Release
-        if: steps.release.outputs.release_created
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
-          gh release edit ${{ steps.release.outputs.tag_name }} --title ${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}
+        with:
+          script: |
+            const { PR_TITLE } = process.env
+            let ver = "";
+
+            if (PR_TITLE !== "") {
+              const pr_splitted = PR_TITLE.split(" ");
+              ver = pr_splitted[pr_splitted.length - 1];
+            }
+            if ('${{ steps.release.outputs.release_created }}' !== "") {
+              ver = "${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}.${{ steps.release.outputs.patch }}"
+            }
+
+            return ver;
+      - uses: ./.github/workflows/modify-release-pr.yml
+        if: ${{ steps.release.outputs.pr && !steps.release.outputs.release_created }}
+        with:
+          version: ${{ steps.extract-version.outputs.result }}
+          pr-number: ${{ fromJSON(steps.release.outputs.pr).number }}
+        secrets: inherit
+      - uses: ./.github/workflows/modify-release.yml
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          version: ${{ steps.extract-version.outputs.result }}
+          tag_name: ${{ steps.release.outputs.tag_name }}
+        secrets: inherit

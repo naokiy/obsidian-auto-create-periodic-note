@@ -1,0 +1,37 @@
+name: modify-release-pr
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        type: string
+      pr-number:
+        required: true
+        type: number
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  modify-release-pr:
+    runs-on: ubuntu-latest
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+      - uses: actions/checkout@v3
+      - name: Install Task
+        uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+      - name: Append file to PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr checkout ${{ input.pr-number }}
+          echo ${PR_TITLE}
+          NEW_VERSION=${{ inputs.version }} task version-bump-beta
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -am "chore(release): :bookmark: Bump version"
+          git push
