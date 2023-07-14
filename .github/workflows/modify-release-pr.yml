@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr checkout ${{ input.pr-number }}
+          gh pr checkout ${{ inputs.pr-number }}
           echo ${PR_TITLE}
           NEW_VERSION=${{ inputs.version }} task version-bump-beta
           git config user.name github-actions[bot]
