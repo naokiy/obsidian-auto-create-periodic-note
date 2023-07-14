@@ -5,7 +5,7 @@ import { Platform } from "obsidian";
 export class DesktopNotifier implements Notifier {
   constructor(
     private readonly pluginName: string,
-    private readonly silent: boolean = false
+    private readonly silent: boolean = false,
   ) {}
 
   show(message: string, onClicked?: OnClickedFunction): void {
@@ -19,13 +19,13 @@ export class DesktopNotifier implements Notifier {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const Notification = electron.remote.Notification;
 
-    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, perfectionist/sort-objects */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
     const n = new Notification({
       title: this.pluginName,
       body: message,
       silent: this.silent,
     });
-    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, perfectionist/sort-objects */
+    /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call */
 
     if (onClicked !== undefined) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call

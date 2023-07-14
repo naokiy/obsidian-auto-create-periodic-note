@@ -36,9 +36,9 @@ export class PluginSettingTab extends obsidian.PluginSettingTab {
       .setName("Notification type")
       .addDropdown((dropdown) => {
         const options = {
+          obsidian: "Notify in obsidian",
           desktop: "Notify on desktop",
           none: "No notification",
-          obsidian: "Notify in obsidian",
         } as const satisfies Record<NotifierType, string>;
         dropdown.addOptions(options);
         dropdown.setValue(currentNotifierType);

@@ -1,9 +1,6 @@
 export const NotifierType = {
-  /** Desktop notification */
   Desktop: "desktop",
-  /** Notify inside of Obsidian.md */
   Obsidian: "obsidian",
-  /** No notification */
   None: "none",
 } as const;
 
