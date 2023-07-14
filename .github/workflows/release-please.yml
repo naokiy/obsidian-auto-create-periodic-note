@@ -50,6 +50,7 @@ jobs:
   modify-pr:
     needs: release-please
     if: ${{ needs.release-please.outputs.to_modify_pr }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
         with:
@@ -73,6 +74,7 @@ jobs:
   modify-release:
     needs: release-please
     if: ${{ needs.release-please.outputs.to_modify_release }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
         with:
