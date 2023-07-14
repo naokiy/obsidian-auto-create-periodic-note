@@ -64,7 +64,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr checkout ${{ needs.release-please.outputs.pr-number }}
+          gh pr checkout ${{ needs.release-please.outputs.pr_number }}
           NEW_VERSION=${{ needs.release-please.outputs.version }} task version-bump-beta
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
