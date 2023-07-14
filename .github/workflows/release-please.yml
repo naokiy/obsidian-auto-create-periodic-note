@@ -20,6 +20,19 @@ jobs:
           package-name: release-please-test
           include-v-in-tag: false
           pull-request-title-pattern: "chore${scope}: :bookmark: release${component} ${version}"
+      - name: Extract Version Number
+        uses: actions/github-script@v6
+        id: extract-version
+        if: ${{ steps.release.outputs.pr && !steps.release.outputs.release_created }}
+        env:
+          PR_TITLE: ${{ steps.release.outputs.pr && fromJSON(steps.release.outputs.pr).title || ''}}
+        with:
+          script: |
+            console.log('${{ steps.release.output.pr }}');
+            console.log('${{ steps.release.outputs.release_created }}');
+            const pr = JSON.parse('${{ steps.release.output.pr }}');
+            return pr.title
+          result-encoding: string
       - uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
