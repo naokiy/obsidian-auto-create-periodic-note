@@ -9,8 +9,6 @@ import { PluginSettingTab } from "./PluginSettingTab";
 
 import * as obsidian from "obsidian";
 
-/* eslint perfectionist/sort-classes:0 */
-
 export class Plugin extends obsidian.Plugin {
   public _createDailySetting!: SettingRepository<boolean>;
 
@@ -26,12 +24,12 @@ export class Plugin extends obsidian.Plugin {
     this._notifierTypeSetting = new NotifierTypeGateway(
       this,
       "notifier-type",
-      NotifierType.Obsidian
+      NotifierType.Obsidian,
     );
     this._silentNotificationSetting = new BooleanGateway(
       this,
       "notifier-silent",
-      false
+      false,
     );
 
     this._controller = new Controller(
@@ -39,10 +37,10 @@ export class Plugin extends obsidian.Plugin {
       new NotifierFactory(
         this.manifest.id,
         this._notifierTypeSetting,
-        this._silentNotificationSetting
+        this._silentNotificationSetting,
       ),
       new DailyNoteCreatorImpl(),
-      checkDailyNoteSupported
+      checkDailyNoteSupported,
     );
   }
 

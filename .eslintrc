@@ -52,12 +52,9 @@
         "read-tsconfig": true
       }
     ],
-    "perfectionist/sort-objects": [
-      "error",
-      {
-        "partition-by-comment": true
-      }
-    ],
+    "perfectionist/sort-classes": "off",
+    "perfectionist/sort-objects": "off",
+    "perfectionist/sort-interfaces": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       { "prefer": "type-imports" }
