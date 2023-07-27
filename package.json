@@ -27,7 +27,7 @@
 		"cz-conventional-changelog": "3.3.0",
 		"esbuild": "0.18.17",
 		"eslint": "8.45.0",
-		"eslint-config-prettier": "8.8.0",
+		"eslint-config-prettier": "8.9.0",
 		"eslint-plugin-perfectionist": "1.5.1",
 		"gitmojis": "3.13.5",
 		"husky": "8.0.3",
