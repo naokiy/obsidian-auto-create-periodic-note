@@ -4,6 +4,8 @@
 		"config:base"
 	],
 	"timezone": "Asia/Tokyo",
+	"prHourlyLimit": 0,
+	"prConcurrentLimit": 0,
 	"lockFileMaintenance": { "enabled": true },
 	"labels": [
 		"📌 dependencies"
@@ -12,8 +14,12 @@
 	"commitMessageAction": "Upgrade",
 	"packageRules": [
 		{
-		  "matchPackageNames": ["@types/node"],
-		  "allowedVersions": "<=16.11"
+			"matchPackageNames": ["@types/node"],
+			"allowedVersions": "<=16.11"
+		},
+		{
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
 		},
 		{
 			"updateTypes": [
