@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/naokiy/obsidian-auto-create-periodic-note/compare/1.0.2...1.0.3) (2023-08-14)
+
+
+### Bug Fixes
+
+* **deps:** ⬆️ Upgrade dependency option-t to v38.0.9 ([#162](https://github.com/naokiy/obsidian-auto-create-periodic-note/issues/162)) ([cd553bc](https://github.com/naokiy/obsidian-auto-create-periodic-note/commit/cd553bc892eaba6733c0cd6cdbf9dda7ef7869f4))
+
 ## [1.0.2](https://github.com/naokiy/obsidian-auto-create-periodic-note/compare/1.0.1...1.0.2) (2023-07-14)
 
 
