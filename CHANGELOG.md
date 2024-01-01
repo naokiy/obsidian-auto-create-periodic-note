@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/naokiy/obsidian-auto-create-periodic-note/compare/1.0.4...v1.0.5) (2024-01-01)
+
+
+### Bug Fixes
+
+* **deps:** ⬆️ Upgrade google-github-actions/release-please-action action to v4 ([#257](https://github.com/naokiy/obsidian-auto-create-periodic-note/issues/257)) ([3ec59f6](https://github.com/naokiy/obsidian-auto-create-periodic-note/commit/3ec59f6d64d5d1137d22a5ade500b34e8073b0db))
+
 ## [1.0.4](https://github.com/naokiy/obsidian-auto-create-periodic-note/compare/1.0.3...1.0.4) (2023-11-24)
 
 
