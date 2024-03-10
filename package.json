@@ -46,6 +46,6 @@
 	"dependencies": {
 		"node-schedule": "2.1.1",
 		"obsidian-daily-notes-interface": "0.9.4",
-		"option-t": "39.0.2"
+		"option-t": "39.0.3"
 	}
 }
