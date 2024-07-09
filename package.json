@@ -33,7 +33,7 @@
 		"mkdirp": "3.0.1",
 		"obsidian": "1.4.11",
 		"prettier": "3.3.2",
-		"rimraf": "5.0.8",
+		"rimraf": "5.0.9",
 		"touch": "3.1.1",
 		"tslib": "2.6.3",
 		"typescript": "5.5.3"
