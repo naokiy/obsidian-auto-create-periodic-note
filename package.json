@@ -36,7 +36,7 @@
 		"rimraf": "5.0.9",
 		"touch": "3.1.1",
 		"tslib": "2.6.3",
-		"typescript": "5.5.3"
+		"typescript": "5.5.4"
 	},
 	"jest": {
 		"transform": {
