@@ -23,7 +23,7 @@
 		"commitizen": "4.3.0",
 		"copyfiles": "2.4.1",
 		"cz-conventional-changelog": "3.3.0",
-		"esbuild": "0.23.0",
+		"esbuild": "0.23.1",
 		"eslint": "8.57.0",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-plugin-perfectionist": "2.11.0",
