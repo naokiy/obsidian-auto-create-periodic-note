@@ -13,7 +13,7 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
-		"@swc/core": "1.10.12",
+		"@swc/core": "1.10.14",
 		"@swc/jest": "0.2.37",
 		"@types/node": "16.11.68",
 		"@types/node-schedule": "2.1.7",
