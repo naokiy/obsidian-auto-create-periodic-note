@@ -52,7 +52,7 @@ jobs:
     if: ${{ needs.release-please.outputs.to_modify_pr }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
       - uses: actions/checkout@v4
@@ -76,7 +76,7 @@ jobs:
     if: ${{ needs.release-please.outputs.to_modify_release }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: "lts/*"
       - uses: actions/checkout@v4
