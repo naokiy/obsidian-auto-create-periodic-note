@@ -57,7 +57,7 @@ jobs:
           node-version: "lts/*"
       - uses: actions/checkout@v4
       - name: Install Task
-        uses: arduino/setup-task@v1
+        uses: arduino/setup-task@v2.0.0
         with:
           version: 3.x
       - name: Append file to PR
@@ -81,7 +81,7 @@ jobs:
           node-version: "lts/*"
       - uses: actions/checkout@v4
       - name: Install Task
-        uses: arduino/setup-task@v1
+        uses: arduino/setup-task@v2.0.0
         with:
           version: 3.x
       - name: NPM install
